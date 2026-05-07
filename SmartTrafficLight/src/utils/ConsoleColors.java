@@ -2,10 +2,11 @@ package utils;
 
 /**
  * ANSI terminal colour codes and banner helpers.
+ * This class cannot be inherited(extended).
  */
 public final class ConsoleColors {
 
-    private ConsoleColors() {}
+    private ConsoleColors() {}      // Prevents object creation
 
     public static final String RESET   = "\u001B[0m";
     public static final String RED     = "\u001B[31m";

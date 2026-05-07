@@ -5,6 +5,7 @@ import java.util.Map;
 
 /**
  * Tracks per-lane and per-type statistics for reporting.
+ * Per-session stats tracker.
  */
 public class Statistics {
 

@@ -7,7 +7,7 @@ import utils.ConsoleColors;
 
 /**
  * Menu-driven console UI for the Smart Traffic Light System.
- * Separates all I/O concerns from business logic.
+ * Separates all I/O concerns from logic.
  */
 public class MenuUI {
 

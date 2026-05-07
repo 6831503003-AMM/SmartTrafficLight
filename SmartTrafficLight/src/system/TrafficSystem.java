@@ -20,6 +20,7 @@ import java.util.Map;
 public class TrafficSystem {
 
     // ── Data Structures ─────────────────────────────────────────────────────
+    //LinkedHashMap keeps insertion order.
     private final Map<String, VehicleQueue<Vehicle>> lanes = new LinkedHashMap<>();
     private final VehicleStack<Vehicle>              undoStack   = new VehicleStack<>();
     private final HistoryList<Vehicle>               history     = new HistoryList<>();
