@@ -1,59 +1,71 @@
-# 🚦 Smart Traffic Light System
+# Smart Traffic Light System
 
-A Java console application demonstrating core **Data Structures** concepts.
-
-## Project Structure
-
-```
-SmartTrafficLight/
-├── README.md
-└── src/
-    ├── Main.java                        ← Entry point
-    ├── model/
-    │   └── Vehicle.java                 ← Vehicle data model (id, lane, type, timestamp)
-    ├── datastructures/
-    │   ├── VehicleQueue.java            ← Custom generic Queue (FIFO) — one per lane
-    │   ├── VehicleStack.java            ← Custom generic Stack (LIFO) — undo support
-    │   └── HistoryList.java             ← Custom doubly-linked list — processed log
-    ├── system/
-    │   └── TrafficSystem.java           ← Core business logic
-    ├── ui/
-    │   └── MenuUI.java                  ← Console menu & all user I/O
-    └── utils/
-        ├── ConsoleColors.java           ← ANSI colours & banner helpers
-        └── Statistics.java             ← Per-session stats tracker
-```
-
-## Data Structures Used
-
-| Structure | Class | Purpose |
-|-----------|-------|---------|
-| Queue | `VehicleQueue<T>` | Holds waiting vehicles per lane (FIFO) |
-| Stack | `VehicleStack<T>` | Enables undo of last processed vehicle (LIFO) |
-| Doubly-Linked List | `HistoryList<T>` | Ordered log of all processed vehicles |
-
-All three are **custom implementations** — no `java.util` collection is used for them.
+A Java console application that simulates vehicles waiting and moving through
+four traffic lanes. The project demonstrates custom data structures and basic
+traffic-processing logic.
 
 ## Features
 
-1. **Add Vehicle** — choose lane (A/B/C/D) and vehicle type (Car/Truck/Bus/Van/Motorcycle)
-2. **Process Traffic** — auto-selects the busiest lane and dequeues one vehicle
-3. **Process Multiple** — process N vehicles in sequence
-4. **Undo** — pop from stack and restore vehicle to front of its lane
-5. **Display Lanes** — iterate over all queues with colour-coded output
-6. **Display History** — **recursive** traversal of the linked list log
-7. **Statistics** — per-lane and per-type breakdown with ASCII bar chart
-8. **Simulate** — random vehicle generation for demo / testing
-9. **Reset ID Counter** — restart vehicle numbering
+- Add vehicles to lanes **A**, **B**, **C**, or **D**
+- Choose vehicle types: Car, Truck, Motorcycle, Bus, or Van
+- Process vehicles from the busiest lane
+- Process multiple vehicles at once
+- Undo the last processed vehicle
+- View current lanes and processed history
+- View session statistics by lane and vehicle type
+- Simulate 1–50 random vehicle arrivals
 
-## How to Compile & Run
+## How It Works
+
+Each lane uses a custom FIFO queue. When a vehicle is processed, it is:
+
+1. Removed from the busiest lane
+2. Added to the undo stack
+3. Added to the processed history
+4. Counted in the session statistics
+
+Undo restores the most recently processed vehicle to the front of its original
+lane. If multiple lanes have the same largest queue, the first lane in the
+order A, B, C, D is selected.
+
+## Project Structure
+
+```text
+src/
+├── Main.java                  # Application entry point
+├── model/Vehicle.java         # Vehicle data model
+├── system/TrafficSystem.java  # Traffic-processing logic
+├── ui/MenuUI.java             # Console menu and input handling
+├── datastructures/
+│   ├── VehicleQueue.java      # FIFO queue for lanes
+│   ├── VehicleStack.java      # LIFO stack for undo
+│   └── HistoryList.java       # Doubly linked processed-history list
+└── utils/
+    ├── ConsoleColors.java     # Terminal formatting
+    └── Statistics.java        # Session statistics
+```
+
+## Technology
+
+- Java 17 or later
+- Standard Java library only
+- No database, web API, authentication, or external services
+- All data is stored in memory and is lost when the program exits
+
+## Compile and Run
+
+From the directory containing `src/`:
 
 ```bash
-# Compile
+mkdir -p out
 javac -d out -sourcepath src src/Main.java
-
-# Run
 java -cp out Main
 ```
 
-Requires Java 17+ (uses switch expressions and text blocks).
+Choose an option from the menu and follow the prompts. Select `0` to exit.
+
+## Notes
+
+- Vehicle IDs start at 1 each time the application starts.
+- Vehicle arrival times are recorded when vehicles are created.
+- The generated `out/` directory is ignored by Git.
